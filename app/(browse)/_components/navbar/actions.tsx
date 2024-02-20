@@ -13,7 +13,7 @@ const user = await currentUser();
         <SignInButton>
             <Button
                 size={"sm"}
-                variant={"primary"}
+                variant={"default"}
             >
                 Login
             </Button>
