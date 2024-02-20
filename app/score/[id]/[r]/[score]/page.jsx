@@ -11,7 +11,6 @@ const ScorePage = () => {
     <div className="container">
       <h1>Quiz Score</h1>
       <p>Quiz ID: {id}</p>
-      {/* <p>Name: {name}</p> */}
       <p>Score: {score}</p>
     </div>
   );
