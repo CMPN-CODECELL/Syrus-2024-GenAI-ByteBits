@@ -89,4 +89,45 @@ router.get("/quiz", async (req, res) => {
 	}
   });
 
+  //////////////////////////////////////////////// Post Route to Answer And Submit quiz /////////////////////////////////////////////////
+router.post("/ques", async (req, res) => {
+	// console.log(req.body.quizId);
+	const quiz = await Quiz.findOne({ quizId: req.query.id });
+	const questions = quiz.questions;
+	if (req.body.answer) {
+	  answer[req.query.no - 1] = req.body.answer;
+	  // const response = await Quiz.findOneAndUpdate({ quizId: req.body.quizId }, {leaderboard.find((result) => result.resultId == resultId).answer: answer });
+	}
+	if (req.query.no == 10) {
+	  let score = 0;
+	  questions.forEach((ques, index) => {
+		if (ques.answer == answer[index]) {
+		  score++;
+		}
+	  });
+	  const resultId = uuidv4();
+	  // const name = req.body.name;
+	  const result = new Result({
+		quizId: req.query.id,
+		resultID: resultId,
+		name: req.body.name,
+		score: score,
+		answer: answer,
+	  });
+	  // console.log(result);
+	  const response = await result.save();
+	  return res.status(200).json({ score: score, resultId: resultId });
+	 
+	//   res.redirect(
+	// 	url.format({
+	// 	  pathname: "/score",
+	// 	  query: {
+	// 		id: req.query.id,
+	// 		r: resultId,
+	// 	  },
+	// 	})
+	//   );
+	} 
+  });
+
 module.exports = router; //exporting router
