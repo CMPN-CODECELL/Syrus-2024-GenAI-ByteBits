@@ -11,10 +11,10 @@ const links = [
     href: "/dashboard/invoices",
     icon: DocumentDuplicateIcon,
   },
-  { name: "Customers", href: "/dashboard/customers", icon: UserGroupIcon },
+  { name: "Comicify", href: "/comicify", icon: UserGroupIcon },
 ];
 
-export const NavLinks = ()=>{
+export const NavLinks = () => {
   return (
     <>
       {links.map((link) => {
@@ -32,4 +32,4 @@ export const NavLinks = ()=>{
       })}
     </>
   );
-}
+};
