@@ -31,7 +31,7 @@ const SubjectCard = ({
   return (
     <Card className="cursor-pointer shadow-md rounded-2xl"
       onClick= {()=>{
-      router.push(`/subject/${code}`)
+      router.push(`/evaluate/subject/${code}`)
     }}
     >
         <CardHeader>
