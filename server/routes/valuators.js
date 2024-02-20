@@ -40,3 +40,99 @@ router.post('/', async (req, res) => {
     return res.status(500).send(err);
   }
 });
+
+router.post('/byId', async (req, res) => {
+  const schema = joi.object({
+    id: joi.string().required(),
+  });
+
+  try {
+    const data = await schema.validateAsync(req.body);
+    const valuator = await Valuator.findById(data.id);
+    return res.send(valuator);
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+});
+
+router.post('/valuate', async (req, res) => {
+  console.log('hello world');
+  const schema = joi.object({
+    valuatorId: joi.string().required(),
+    answerSheet: joi.string().required(),
+  });
+
+  try {
+    const data = await schema.validateAsync(req.body);
+    const valuator = await Valuator.findById(data.valuatorId);
+
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4-vision-preview',
+      messages: [
+        {
+          role: 'system',
+          content: aiPrompt,
+        },
+        {
+          role: 'user',
+          content: [
+            { type: 'text', text: 'Question Paper:' },
+            {
+              type: 'image_url',
+              image_url: {
+                url: valuator.questionPaper,
+              },
+            },
+          ],
+        },
+        {
+          role: 'user',
+          content: [
+            { type: 'text', text: 'Answer Keys:' },
+            {
+              type: 'image_url',
+              image_url: {
+                url: valuator.answerKey,
+              },
+            },
+          ],
+        },
+        {
+          role: 'user',
+          content: [
+            { type: 'text', text: 'Answer Sheet:' },
+            {
+              type: 'image_url',
+              image_url: {
+                url: data.answerSheet,
+              },
+            },
+          ],
+        },
+      ],
+      max_tokens: 1000,
+    });
+
+    const resp = completion.choices[0].message.content;
+
+    const respData = JSON.parse(resp.split('```json')[1].split('```')[0]);
+
+    const newValuation = new Valuation({
+      valuatorId: data.valuatorId,
+      data: respData,
+      answerSheet: data.answerSheet,
+    });
+
+    await newValuation.save();
+
+    return res.send(respData);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send(err);
+  }
+});
+
