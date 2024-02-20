@@ -26,33 +26,42 @@ stability_api = client.StabilityInference(
 
 
 app = Flask(__name__)
+client=openai.OpenAI(api_key=os.environ['OPENAI_API'])
 
 CORS(app, resources={r'/*': {'origins': '*'}})
 
-# ==== Helper Functions ====
+def convert_text_to_conversation(text):
 
-# ==== Routes ====
+    openai.api_key = os.environ['OPENAI_API']
+
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[{
+            "role": "system",
+            "content": "You are a fun yet knowledgable assistant."
+        }, {
+            "role": "user",
+            "content": text
+        }],
+        temperature=0.6,
+        max_tokens=150)
+    speech, person = generate_map_from_text(response.choices[0].message.content)
+    return (speech, person)
 
 @app.route('/', methods=['GET'])
 def test():
     return 'The server is running!'
 
-
 @app.route('/comicify', methods=['POST'])
 def generate_comic_from_text():
 
     prompt = "Convert the following boring text into a comic style conversation between characters while retaining information. Try to keep the characters as people from the story. Keep a line break after each dialogue and don't include words like Scene 1, narration context and scenes etc. Keep the name of the character and not character number: \n\n\n"
-
     user_input = request.get_json()['userInput']
-
     customisation = request.get_json()['customizations']
-
     cfg = request.get_json()['cfgValue']
-
     step = request.get_json()['steps']
     print(user_input)
     print(customisation)
-
     input = prompt + user_input
     response = convert_text_to_conversation(input)
     print(response)
@@ -75,7 +84,7 @@ def generate_comic_from_text():
 
     return send_file('./file.pdf', as_attachment=True)
 
-client=openai.OpenAI(api_key=os.environ['OPENAI_API'])
+
 template = """You are a online teacher assistant who teaches for class 6-8 students aged 10-16 .You are multilingual. You need to provide answers which are 
 understandable to students aged 10-16.You Need to give answers only in 10 lines approximately 10-20 words only.You have to answer to this Question: {question}.The answer must follow a certain format explaining them the concept very easily.
 """
@@ -83,10 +92,9 @@ understandable to students aged 10-16.You Need to give answers only in 10 lines 
 prompt = PromptTemplate.from_template(template)
 prompt = PromptTemplate(input_variables=["question"],
                             template=template)
-
-
 llm = ChatOpenAI(model="gpt-4",temperature=0.0,openai_api_key=os.environ['OPENAI_API'])
 llm_chain = LLMChain(prompt=prompt, llm=llm)
+
 def genImage(input):
     response= client.images.generate(
         model="dall-e-3",

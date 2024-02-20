@@ -33,7 +33,7 @@ export default function Dashboard() {
       redirect: "follow",
     };
 
-    fetch("http://127.0.0.1:5000/", requestOptions)
+    fetch("http://127.0.0.1:5000/comicify", requestOptions)
       .then((response) => response.blob())
       .then((blob) => {
         const downloadUrl = URL.createObjectURL(blob);
@@ -67,8 +67,8 @@ export default function Dashboard() {
           </div>
         </div>
       ) : (
-        <div className="flex justify-center gap-5">
-          <section className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 h-[550px] w-[600px]">
+        <div className="flex  gap-5">
+          <section className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 h-[100dvh] w-[600px]">
             <div className="flex flex-col h-full w-full p-4 leading-normal">
               <label
                 htmlFor="UserMessage"
