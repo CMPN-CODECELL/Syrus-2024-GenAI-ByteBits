@@ -1,26 +1,45 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
+import LottieAnimation from './LottieAnimation'; // Import the LottieAnimation component
 
 const Page = () => {
   const router = useRouter();
-  const [selectedOption, setSelectedOption] = useState('');
 
-  const handleDropdownChange = (event) => {
-    setSelectedOption(event.target.value);
-    // Redirect to the selected option
-    router.push(`/${event.target.value}`);
+  const handlePdfOptionClick = () => {
+    router.push('/pdfToQuiz');
+  };
+
+  const handleVideoOptionClick = () => {
+    router.push('/videoToQuiz');
   };
 
   return (
-    <>
-      <h1>Hello!!</h1>
-      <select value={selectedOption} onChange={handleDropdownChange}>
-        <option value="">Select an option</option>
-        <option value="pdfToQuiz">PDF</option>
-        <option value="videoToQuiz">Video</option>
-      </select>
-    </>
+    <div className="flex justify-center items-center h-screen relative">
+      {/* Render the Lottie animation as a background */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <LottieAnimation />
+      </div>
+      <div className="flex flex-col items-center z-10">
+        <h1 className="text-3xl font-bold mb-8">Generate Quiz</h1>
+        <div className="flex space-x-8">
+          {/* PDF Option Box */}
+          <div
+            className="w-64 h-32 bg-blue-500 text-white font-semibold flex justify-center items-center rounded-lg cursor-pointer hover:bg-blue-600 transition duration-300"
+            onClick={handlePdfOptionClick}
+          >
+            PDF
+          </div>
+          {/* Video Option Box */}
+          <div
+            className="w-64 h-32 bg-green-500 text-white font-semibold flex justify-center items-center rounded-lg cursor-pointer hover:bg-green-600 transition duration-300"
+            onClick={handleVideoOptionClick}
+          >
+            Video
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

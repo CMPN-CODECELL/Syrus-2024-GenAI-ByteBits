@@ -7,17 +7,14 @@
 }
 
 form {
-    height: 90vh;
+    height: 90dvh;
     width: 70%;
     max-height: 90vh;
     display: grid;
     gap: 1em;
     place-items: center;
-    margin: 2vh auto;
-    border: 2px solid #ccc; /* Add border */
-    padding: 20px; /* Optional: Add padding for better visual appearance */
+    margin: 2dvh auto;
 }
-
 
 form h2 {
     font-size: 2.5rem;
@@ -57,6 +54,8 @@ form .input_area textarea {
     font-family: 'Poppins', sans-serif;
     resize: none;
     outline: none;
+	height: auto; /* Set the height of the textarea to auto */
+
 }
 
 form div textarea:focus {
@@ -114,6 +113,14 @@ form button {
     font-weight: bold;
     cursor: pointer;
     bottom: 5%;
+	height: auto; /* Adjust the height of the button */
+    margin-top: 1rem; /* Add margin to separate the button from the textarea */
+    background-color: blue; /* Change the background color to blue */
+}
+
+.submit_button{
+	background-color: rgb(3, 88, 163);
+
 }
 
 .loader_active {
@@ -147,3 +154,22 @@ form button {
     height: 80%;
     object-fit: contain;
   }
+
+  .container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+  }
+  
+  .box {
+	width: 70%;
+	max-width: 600px; /* Adjust as needed */
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Other styles remain the same */
+  

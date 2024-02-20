@@ -116,39 +116,15 @@ const PdfToQuizPage = () => {
               Select PDF
             </label>
             <p className="select_button_para">or drag and drop pdf here</p>
-            {selectedFile && <p>{selectedFile.name}</p>}
+            {/* {selectedFile && <p>{selectedFile.name}</p>} */}
           </div>
-          <div className="select_text">
-            <textarea
-              name="quizContent"
-              id="text"
-              rows="10"
-              placeholder="Enter the text if you don't have pdf"
-            ></textarea>
-          </div>
+          
         </div>
 
         <div className={`submit_area ${disabled ? "disabled" : ""}`}>
           <h2>PDF to QUIZ</h2>
           <div className="toggle">
-            <label htmlFor="index_start" className="index_start">
-              From Page
-            </label>
-            <input
-              type="number"
-              className="index_start"
-              id="index_start"
-              required
-            />
-            <label htmlFor="index_end" className="index_end">
-              To Page
-            </label>
-            <input
-              type="number"
-              className="index_end"
-              id="index_end"
-              required
-            />
+            
             <span className="difficulty_label">Set difficulty</span>
             <span className="difficulty">
               <input
