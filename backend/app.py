@@ -24,6 +24,7 @@ stability_api = client.StabilityInference(
     engine="stable-diffusion-xl-beta-v2-2-2",
 )
 
+client=openai.OpenAI(api_key=os.environ['OPENAI_API'])
 
 app = Flask(__name__)
 
@@ -54,7 +55,7 @@ def generate_comic_from_text():
     print(customisation)
 
     input = prompt + user_input
-    response = convert_text_to_conversation(input)
+    response = convert_text_to_conversation(client, input)
     print(response)
 
     generated_images_paths = []
@@ -75,7 +76,6 @@ def generate_comic_from_text():
 
     return send_file('./file.pdf', as_attachment=True)
 
-client=openai.OpenAI(api_key=os.environ['OPENAI_API'])
 template = """You are a online teacher assistant who teaches for class 6-8 students aged 10-16 .You are multilingual. You need to provide answers which are 
 understandable to students aged 10-16.You Need to give answers only in 10 lines approximately 10-20 words only.You have to answer to this Question: {question}.The answer must follow a certain format explaining them the concept very easily.
 """

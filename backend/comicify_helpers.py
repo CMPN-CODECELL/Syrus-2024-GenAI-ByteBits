@@ -12,13 +12,13 @@ import os
 # It takes a user's query or message as input and returns the generated response.
 
  """
-def convert_text_to_conversation(text):
+def convert_text_to_conversation(client, text):
 
-    openai.api_key = os.environ['OPENAI_API']
+    # openai.api_key = os.environ['OPENAI_API']
 
     # Call the OpenAI API to generate a response
 
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
 
         model="gpt-3.5-turbo",
 

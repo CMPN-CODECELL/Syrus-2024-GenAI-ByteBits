@@ -107,7 +107,7 @@ export default function Dashboard() {
                 <span className="w-full">
                   <label
                     htmlFor="cfg_scale"
-                    class=" mb-2 text-sm font-medium text-gray-900"
+                    className=" mb-2 text-sm font-medium text-gray-900"
                   >
                     CFG Scale {cfgValue}
                   </label>
@@ -118,14 +118,14 @@ export default function Dashboard() {
                     max="10"
                     value={cfgValue}
                     step="1"
-                    class="w-full h-2 bg-gray-400 rounded-lg appearance-none cursor-pointer "
+                    className="w-full h-2 bg-gray-400 rounded-lg appearance-none cursor-pointer "
                     onChange={(e) => setCfgValue(e.target.value)}
                   />
                 </span>
                 <span className="w-full">
                   <label
                     htmlFor="steps"
-                    class=" mb-2 text-sm font-medium text-gray-900 "
+                    className=" mb-2 text-sm font-medium text-gray-900 "
                   >
                     Steps {steps}
                   </label>
@@ -136,7 +136,7 @@ export default function Dashboard() {
                     max="100"
                     value={steps}
                     step="10"
-                    class="w-full h-2 bg-gray-400 rounded-lg appearance-none cursor-pointer"
+                    className="w-full h-2 bg-gray-400 rounded-lg appearance-none cursor-pointer"
                     onChange={(e) => setSteps(e.target.value)}
                   />
                 </span>
