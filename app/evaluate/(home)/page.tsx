@@ -5,14 +5,14 @@ import { toast } from 'sonner';
 import SubjectCard from './subject-card';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { InputData } from './input-data';
+import { useRouter } from 'next/navigation';
 
 const HomePage = () => {
   const [subjects, setSubjects] = useState([]);
   const [creatingSubject, setCreatingSubject] = useState(false);
-
-  // useEffect(() => {
-  //   getSubjects();
-  // }, []);
+  const [subjectData,setSubjectData] = useState([])
+  const router = useRouter();
 
   const getSubjects = async () => {
     try {
@@ -23,29 +23,24 @@ const HomePage = () => {
     }
   };
 
-  const createSubject = async () => {
+  const createSubject = async (subjectData) => {
     setCreatingSubject(true);
     try {
-      const response = await axios.post(`http://localhost:3001/subjects/`, {
-        name: 'Mathematics323',
-        description: 'Study of numbers, quantities, shapes, and patterns.',
-        code: 'MATH101224',
-        department: 'Mathematics Department',
-        credits: 3,
-      });
+      const response = await axios.post(`http://localhost:3001/subjects/`,subjectData);
       setCreatingSubject(false);
       toast.success('Subject created successfully!');
       // getSubjects();
-      const newValuationModal = document.getElementById('new_valuation_modal');
-      if (newValuationModal) newValuationModal.close();
     } catch (error) {
       setCreatingSubject(false);
+      console.log(error)
       toast.error('Error creating subject!');
-      // Close modal if applicable
-      const newValuationModal = document.getElementById('new_valuation_modal');
-      if (newValuationModal) newValuationModal.close();
     }
   };
+
+
+  useEffect(() => {
+    getSubjects();
+  }, []);
 
   const subjectsData = [
     {
@@ -95,10 +90,6 @@ const HomePage = () => {
 
   return (
     <div className="grid grid-cols-4 gap-2 m-2 mt-4">
-      <Card className='cursor-pointer'
-        onClick={createSubject}>
-        Add
-      </Card>
       {subjectsData.map((subject, index) => (
         <SubjectCard
           key={index}
@@ -109,6 +100,21 @@ const HomePage = () => {
           credits={subject.credits}
         />
       ))}
+        {subjects.map((subject, index) => (
+        <SubjectCard
+          key={index}
+          name={subject.name}
+          description={subject.description}
+          code={subject.code}
+          department={subject.department}
+          credits={subject.credits}
+        />
+      ))}
+      <Card className='cursor-pointer flex justify-center items-center'>
+         <InputData
+          handleClick={createSubject}
+         />
+      </Card>
     </div>
   );
 };

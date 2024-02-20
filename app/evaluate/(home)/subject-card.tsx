@@ -6,7 +6,7 @@ import {
     CardHeader,
     CardTitle,
   } from "@/components/ui/card"
-
+import { useRouter } from 'next/navigation';
 import React from 'react'
 
 
@@ -26,8 +26,14 @@ const SubjectCard = ({
     credits,
     classname
 }:SubjectCardProps) => {
+
+  const router = useRouter();
   return (
-    <Card className="cursor-pointer shadow-md rounded-2xl">
+    <Card className="cursor-pointer shadow-md rounded-2xl"
+      onClick= {()=>{
+      router.push(`/subject/${code}`)
+    }}
+    >
         <CardHeader>
         <CardTitle>{name}</CardTitle>
         <CardDescription>{description}</CardDescription>
