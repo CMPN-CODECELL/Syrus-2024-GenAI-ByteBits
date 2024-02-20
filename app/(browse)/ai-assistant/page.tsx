@@ -3,7 +3,7 @@
 import { ModeToggle } from '@/components/theme-toggle'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import React, {useState } from 'react'
+import React, {useState,useEffect} from 'react'
 import { Rings } from 'react-loader-spinner'
 
 const HomePage = () => {
@@ -12,13 +12,19 @@ const HomePage = () => {
   const [mirrored, setmirrored] = useState(true);
   const [loading, setLoading] = useState(false)
 
-  
+  // useEffect(()=>{
+  //   setLoading(true);
+  // })
   return (
     
     <div className="flex h-screen max-lg:flex-col max-md:flex-col">
       {/* Left divison - webcam and canvas */}
-      <div>
-        
+      <div className='h-[100%] w-[50%]'>
+         <div className="w-full h-[50%] rounded-lg shadow-lg">
+            <div className="flex justify-center items-center">
+              <div className="w-40 h-40 bg-gray-300 rounded-full"></div>
+            </div>
+         </div>
       </div>
       
       {/* Right divsion - container for button panel and wiki section */}
