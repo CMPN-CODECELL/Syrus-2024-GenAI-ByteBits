@@ -81,7 +81,7 @@ const HomePage = () => {
           <div className="w-40 h-40 bg-gray-300 rounded-full"></div>
           <div className="text-2xl">Teacher Name : Aum Kulkarni</div>
           <div className="flex gap-8 ">
-            <Button
+            {/* <Button
               onClick={toggleMute}
               className="my-2 h-6 w-6"
               variant={"outline"} 
@@ -89,7 +89,7 @@ const HomePage = () => {
               asChild
             >
               {mute? <MicOff size={14} />:<Mic color="#ff0000" size={14}/>}
-            </Button>
+            </Button> */}
             <Button
               onClick={null}
               className="my-2 h-6 w-6"

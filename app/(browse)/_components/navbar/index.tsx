@@ -1,5 +1,7 @@
 import React from 'react'
 import { Actions } from './actions'
+import { ModeToggle } from '@/components/theme-toggle'
+import { NavLinks } from './navigation'
 
 export const Navbar = () => {
   return (
@@ -8,6 +10,8 @@ export const Navbar = () => {
             <Search/>
              */}
         <Actions/>
+        <NavLinks/>
+        <ModeToggle/>
     </nav>
   )
 }
