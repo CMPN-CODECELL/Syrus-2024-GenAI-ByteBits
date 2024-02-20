@@ -55,13 +55,13 @@ def home():
              # Use previous response as context if available
             context = memory if memory else None
             response = llm_chain.run(question)
-            # image_response = genImage(response)
-            # url="https://" + image_response.split("https://")[1].replace(")","")
-            # print(url)
+            image_response = genImage(response)
+            url="https://" + image_response.split("https://")[1].replace(")","")
+            print(url)
             memory = response
             # print(jsonify({'text':response,'url':url}))
-            return jsonify({'text':response})
-            # return jsonify({'text':response,'url':url})
+            # return jsonify({'text':response})
+            return jsonify({'text':response,'url':url})
         except KeyError:
              return 'Missing "input" field in JSON data', 400
         except Exception as e:
