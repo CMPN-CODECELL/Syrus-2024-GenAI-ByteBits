@@ -1,5 +1,5 @@
 const express = require('express');
-const joi  = require('joi');
+const joi = require('joi');
 const Valuator = require('../models/Valuator.js');
 const OpenAI = require('openai');
 const aiPrompt = require('../utils/utils.js');
@@ -136,3 +136,54 @@ router.post('/valuate', async (req, res) => {
   }
 });
 
+router.post('/valuations', async (req, res) => {
+  const schema = joi.object({
+    valuatorId: joi.string().required(),
+  });
+
+  try {
+    const data = await schema.validateAsync(req.body);
+    const valuations = await Valuation.find({
+      valuatorId: data.valuatorId,
+    }).lean();
+
+    for (const valuation of valuations) {
+      valuation.questionPaper = (
+        await Valuator.findById(valuation.valuatorId)
+      ).questionPaper;
+      valuation.answerKey = (
+        await Valuator.findById(valuation.valuatorId)
+      ).answerKey;
+    }
+
+    return res.send(valuations.reverse());
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+});
+
+router.post('/total-marks', async (req, res) => {
+  const schema = joi.object({
+    valuationId: joi.string().required(),
+  });
+
+  try {
+    const data = await schema.validateAsync(req.body);
+    const valuation = await Valuation.findById(data.valuationId);
+    var totalScore = 0;
+    var maxScore = 0;
+
+    for (const answer of valuation.data.answers) {
+      totalScore += answer.score[0];
+      maxScore += answer.score[1];
+    }
+
+    return res.send({
+      examName: (await Valuator.findById(valuation.valuatorId)).title,
+      totalScore: totalScore.toString(),
+      maxScore: maxScore.toString(),
+    });
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+});
