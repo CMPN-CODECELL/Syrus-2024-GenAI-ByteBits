@@ -5,13 +5,18 @@ import {
   } from "@heroicons/react/24/outline";
   
   const links = [
-    { name: "Home", href: "/dashboard", icon: HomeIcon },
+    { name: "Home", 
+      href: "/dashboard", 
+      icon: HomeIcon },
     {
       name: "Invoices",
       href: "/dashboard/invoices",
       icon: DocumentDuplicateIcon,
     },
-    { name: "Comicify", href: "/comicify", icon: UserGroupIcon },
+    { name: "Comicify", 
+      href: "/comicify", 
+      icon: UserGroupIcon 
+    },
   ];
   
   export const NavLinks = () => {
