@@ -59,7 +59,7 @@ const VoiceAssistant: React.FC = () => {
               }}>Speak</button>
               <button className="bg-blue-700 p-2 m-2" onClick={() => {
                 speech.stopListening();
-              }}>Stop</button>
+              }}>Stop</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <button className="bg-blue-700 p-2 m-2" onClick={() => {
                 speechSynthesis.cancel();
               }}>Stop answer</button>

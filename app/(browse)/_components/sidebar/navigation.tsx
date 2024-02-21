@@ -2,6 +2,8 @@ import {
   UserGroupIcon,
   HomeIcon,
   DocumentDuplicateIcon,
+  DocumentIcon,
+  AcademicCapIcon
 } from "@heroicons/react/24/outline";
 
 const links = [
@@ -12,11 +14,15 @@ const links = [
   {
     name: "AI-Teacher",
     href: "/ai-assistant",
-    icon: DocumentDuplicateIcon,
+    icon: AcademicCapIcon,
   },
   { name: "Comicstaan", 
     href: "/comicify", 
     icon: UserGroupIcon 
+  },
+  { name: "Testify", 
+    href: "/testify", 
+    icon: DocumentIcon 
   },
 ];
 
