@@ -1,10 +1,10 @@
 const OpenAI = require('openai');
 const { parse } = require('path');
 const openai = new OpenAI({
-    apiKey: process.env.OPENAIAPIKEY // This is also the default, can be omitted
+    apiKey: process.env.OPEN_AI_API // This is also the default, can be omitted
 });
 async function chatGPT(content,dificultyLevel ) {
-	console.log("openai:", process.env.OPENAIAPIKEY)
+	console.log("openai:", process.env.OPEN_AI_API)
     const format = {
         questions: [
             {

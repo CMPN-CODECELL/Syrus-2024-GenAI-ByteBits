@@ -27,7 +27,7 @@ export default function VideoToQuiz() {
     };
 
     try {
-      const url = `http://localhost:3001/api/createQuizFromVideo`;
+      const url = `http://localhost:3002/api/createQuizFromVideo`;
       const response = await fetch(url, {
         method: "POST",
         headers: {

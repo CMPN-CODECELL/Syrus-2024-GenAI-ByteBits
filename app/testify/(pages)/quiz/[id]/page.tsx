@@ -22,7 +22,7 @@ const QuizPage = () => {
   useEffect(() => {
     const fetchQuestion = async () => {
       try {
-        const res = await fetch(`http://localhost:3001/api/quiz?id=${id}&no=${no}`);
+        const res = await fetch(`http://localhost:3002/api/quiz?id=${id}&no=${no}`);
         if (res.ok) {
           const data = await res.json();
           setQuestion(data.question);
@@ -75,7 +75,7 @@ const QuizPage = () => {
     console.log('Submitting quiz with name:', name);
     
     try {
-      const res = await fetch(`http://localhost:3001/api/ques?id=${id}&no=${no}`, {
+      const res = await fetch(`http://localhost:3002/api/ques?id=${id}&no=${no}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

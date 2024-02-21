@@ -31,7 +31,7 @@ const PdfToQuizPage = () => {
 
         // Now, make a request to the createQuiz endpoint with the extracted text
         const createQuizResponse = await fetch(
-          "http://localhost:3001/api/createQuiz",
+          "http://localhost:3002/api/createQuiz",
           {
             method: "POST",
             headers: {

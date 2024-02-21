@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { serverUrl } from "@/utils/utils";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import {toast} from "sonner";
 import { FiArrowLeft, FiCpu, FiEdit, FiEdit2, FiEdit3, FiPlusCircle, FiRefreshCcw, FiStar, FiTablet, FiUser } from "react-icons/fi";
 import { AiOutlineTrophy } from "react-icons/ai";
 import Navbar from "../../components/Navbar";
@@ -166,7 +166,6 @@ const ViewAnswerPage = ({ params: { valuatorId } }: Params) => {
 					/>
 				</div>
 			</div>
-			<ToastContainer />
 			{/* Revaluation modal */}
 			<dialog id="revaluation_modal" className="modal">
 				<div className="modal-box max-w-2xl align-middle">

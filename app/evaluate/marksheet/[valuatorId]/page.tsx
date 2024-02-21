@@ -4,7 +4,7 @@ import Navbar from "@/app/(root)/components/Navbar";
 import ExportPDFButton from "@/app/(root)/components/MarksLIst";
 import { serverUrl } from "@/utils/utils";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import {toast } from "sonner";
 
 export interface Mark {
 	id: number;

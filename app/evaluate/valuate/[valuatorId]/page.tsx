@@ -1,9 +1,9 @@
 "use client";
 import { UploadButton } from "@/utils/uploadthing";
 import { useEffect, useState } from "react";
-import { serverUrl } from "@/utils/utils";
+// import { serverUrl } from "@/utils/utils";
 import axios from "axios";
-import { ToastContainer, toast } from "sonner";
+import {toast} from "sonner";
 import { AiFillCheckCircle, AiOutlineFileDone } from "react-icons/ai";
 import { FiCheckCircle, FiUpload } from "react-icons/fi";
 import { CiTrophy } from "react-icons/ci";
@@ -13,6 +13,8 @@ type Params = {
     valuatorId: string
   }
 }
+
+const serverUrl = "http://localhost:3001";
 
 const Page = ({ params: { valuatorId } }: Params)=>{
   const [valuator, setValuator] = useState<any>(null);
@@ -96,8 +98,8 @@ const Page = ({ params: { valuatorId } }: Params)=>{
         <div className="flex items-center mb-10 justify-between">
           <h1 className="font-bold text-4xl flex items-center"><AiOutlineFileDone className="mr-2" /> {valuator?.title}</h1>
           <div className="flex">
-            <button className="btn btn-primary btn-md mr-2" onClick={() => window.location.href = `/review/${valuatorId}`}><FiCheckCircle /> Review Answer Sheets</button>
-            <button className="btn btn-primary btn-md" onClick={() => window.location.href = `/marksheet/${valuatorId}`}><CiTrophy /> View Marksheet</button>
+            <button className="btn btn-primary btn-md mr-2" onClick={() => window.location.href = `/evaluate/review/${valuatorId}`}><FiCheckCircle /> Review Answer Sheets</button>
+            <button className="btn btn-primary btn-md" onClick={() => window.location.href = `/evaluate/marksheet/${valuatorId}`}><CiTrophy /> View Marksheet</button>
           </div>
         </div>
         <h3 className="text-xl font-bold mb-5 flex items-center"><FiUpload className="mr-2" /> Upload answer sheets</h3>
@@ -134,7 +136,7 @@ const Page = ({ params: { valuatorId } }: Params)=>{
         {/* {
           valuating ? <div className="flex"><span className="loading loading-spinner loading-md"></span><p>Validating Answer Sheet {currentValuatingSheet} of {answerSheets?.length}</p></div> : ""
         } */}
-        <ToastContainer />
+  
       </div>
       {/* Revaluation modal */}
       <dialog id="valuation_modal" className="modal">
@@ -156,4 +158,4 @@ const Page = ({ params: { valuatorId } }: Params)=>{
   );
 };
 
-export default Page
+export default Page;
