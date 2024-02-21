@@ -7,6 +7,8 @@ import {
   import { Plus } from "lucide-react";
   import { Button } from "@/components/ui/button";
   import { Input } from "@/components/ui/input";
+  import { UploadButton } from "@/utils/uploadthing";
+import { AiFillCheckCircle } from "react-icons/ai";
   
   interface ValuatorDataProps {
     handleClick: Function;
@@ -21,6 +23,7 @@ import {
     const [answerKeyUrl, setAnswerKeyUrl] = useState("");
 
     const handleSubmit = (e) => {
+        e.preventDefault()
         handleClick({
           title,
           questionPaperUrl,
@@ -34,7 +37,10 @@ import {
     return (
       <Dialog>
         <DialogTrigger>
-          <Button variant={"outline"} size={"icon"}
+          <Button 
+          
+          
+          variant={"outline"} size={"icon"}
           asChild
           >
             <Plus size={30} />
@@ -50,18 +56,32 @@ import {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-            <Input
-              placeholder="Question Paper"
-              value={questionPaperUrl}
-              type="file"
-              onChange={(e) => setQuestionPaperUrl(e.target.value)}
-            />
-            <Input
-              placeholder="Answer Key"
-              value={answerKeyUrl}
-              type="file"
-              onChange={(e) => setAnswerKeyUrl(e.target.value)}
-            />
+            {questionPaperUrl ? <AiFillCheckCircle className="text-2xl mr-2 text-green-500" /> : ""}
+            {questionPaperUrl ? questionPaperUrl : <UploadButton
+                endpoint="media"
+                onClientUploadComplete={(res) => {
+                    // Do something with the response
+                    console.log("Files: ", res![0].url);
+                    setQuestionPaperUrl(res![0].url);
+                }}
+                onUploadError={(error: Error) => {
+                    // Do something with the error.
+                    alert(`ERROR! ${error.message}`);
+                }}
+            />}
+            {answerKeyUrl ? <AiFillCheckCircle className="text-2xl mr-2 text-green-500" /> : ""}
+                {answerKeyUrl ? answerKeyUrl : <UploadButton
+                    endpoint="media"
+                    onClientUploadComplete={(res) => {
+                        // Do something with the response
+                        console.log("Files: ", res![0].url);
+                        setAnswerKeyUrl(res![0].url);
+                    }}
+                    onUploadError={(error: Error) => {
+                        // Do something with the error.
+                        alert(`ERROR! ${error.message}`);
+                    }}
+                />}
             <Button
               variant={"default"}
               onClick={handleSubmit}
