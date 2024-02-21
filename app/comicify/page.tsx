@@ -6,16 +6,17 @@ import { FileUploader } from "react-drag-drop-files";
 import Lottie from "react-lottie-player";
 import loader from "./loader.json";
 import loader2 from "./Loader2.json";
-
+import PDFViewer from "./PDFViewer";
+import MyLoadingComponent from "./MyLoadingComponent";
 
 export default function Dashboard() {
   const [userInput, setUserInput] = useState("");
+  const [dispalay, setDisplay] = useState(false);
   const [pdfUrl, setPdfUrl] = useState("");
   const [file, setFile] = useState(null);
   const handleChange = (file) => {
     setFile(file);
   };
-  const [loading, setLoading] = useState(false);
   const [cfgValue, setCfgValue] = useState(8);
   const [steps, setSteps] = useState(30);
   const [customizations, setCustomizations] = useState("");
@@ -23,7 +24,7 @@ export default function Dashboard() {
   const fileTypes = ["PDF"];
 
   const clickHandler = () => {
-    setLoading(true);
+    setDisplay(true);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -43,11 +44,10 @@ export default function Dashboard() {
         setPdfUrl(downloadUrl);
         const link = document.createElement("a");
         link.href = downloadUrl;
-        link.setAttribute("download", "file.pdf"); 
+        link.setAttribute("download", "file.pdf");
         document.body.appendChild(link);
         link.click();
         link.remove();
-        setLoading(false);
         setUserInput("");
       })
       .catch((error) => {
@@ -137,28 +137,11 @@ export default function Dashboard() {
           </button>
         </div>
       </section>
-      <section className="flex-1">
-        {pdfUrl?(
-          <embed
-            src={pdfUrl} 
-            type="application/pdf"
-            width="100%"
-            height="100%"
-          />
-        ):(
-          <div className=" static backdrop-blur-sm min-h-screen flex items-center justify-center flex-col">
-          <div className="opacity-75 h-[38h] w-[38vh] rounded-lg">
-            <Lottie loop animationData={loader2} play className="h-[40vh]" />
-          </div>
-          <div className=" font-xl font-semibold p-2">
-            Comicifying...
-          </div>
-          <div className=" font-xl font-semibold p-2">
-            It might take upto a minute, so please be patient
-          </div>
-        </div>
-        )}
-    </section>
+      {dispalay && (
+        <section className="flex-1">
+          {pdfUrl ? <PDFViewer src={pdfUrl} /> : <MyLoadingComponent />}
+        </section>
+      )}
     </main>
   );
 }
